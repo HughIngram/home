@@ -5,6 +5,7 @@ Script that runs on starting a terminal session
 Vimscript that runs on vim startup
 
 .xmodmap-esc
+run xmodmap ~/xmodmap-esc
 Maps caps lock to esc. May require xmodmap to be installed.
 
 .backgrounds.sh
