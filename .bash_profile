@@ -1,2 +1,2 @@
 xmodmap ~/.xmodmap-esc
-~/.backgrounds.sh
+~/backgrounds.sh
