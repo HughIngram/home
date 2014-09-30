@@ -1,3 +1,4 @@
+#to do: keep original filename and do not delete old images
 #!/bin/bash
 
 #script to download the APOD from NASA and set it as the desktop background
