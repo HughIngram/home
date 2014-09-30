@@ -2,7 +2,7 @@
 
 #script to download the APOD from NASA and set it as the desktop background
 
-cd /home/hugh/Pictures
+cd $HOME/Pictures
 mkdir -p apod 
 cd apod
 #pwd
