@@ -114,3 +114,8 @@ export NETKIT_HOME=~/netkit
 export MANPATH=:$NETKIT_HOME/man
 export PATH=$NETKIT_HOME/bin:$PATH
 . $NETKIT_HOME/bin/netkit_bash_completion
+
+#aliases
+alias ls1="ls -1"
+alias lsa="ls -a1"
+alias lsl="ls -1lh"
