@@ -119,3 +119,19 @@ export PATH=$NETKIT_HOME/bin:$PATH
 alias ls1="ls -1"
 alias lsa="ls -a1"
 alias lsl="ls -1lh"
+
+# swap: Swaps contents of two files
+#    param1: the file to be swapped
+#    param2: the file to be swapped
+function swap() # swap 2 filenames around
+{
+   if [[ -e "$1" && -e "$2" ]]      # if files exist
+   then
+      local TMPFILE=tmp.$$
+      mv "$1" $TMPFILE
+      mv "$2" "$1"
+      mv $TMPFILE "$2"
+   else
+      echo "Error: Make sure the files exist."
+   fi
+}
