@@ -32,6 +32,7 @@ ls -lh | grep $filename
 echo
 echo Script Complete!
 echo ===========================
+echo "file://$HOME/Pictures/apod/$filename"
 gsettings set org.gnome.desktop.background picture-uri file://$HOME/Pictures/apod/$filename
 gsettings set org.gnome.desktop.background picture-options zoom
 

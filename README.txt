@@ -12,3 +12,6 @@
 
 .backgrounds.sh
 	Changes desktop background regularly. Invoked by .bash_profile.
+
+.random_background_selector
+	Selects a random image as desktop background from a given directory
