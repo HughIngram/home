@@ -15,3 +15,7 @@
 
 .random_background_selector
 	Selects a random image as desktop background from a given directory
+
+lubuntu-rc.xml
+	config file for lubuntu
+	lives in ~/.config/openbox/
