@@ -19,3 +19,6 @@
 lubuntu-rc.xml
 	config file for lubuntu
 	lives in ~/.config/openbox/
+
+set_up_home.sh
+	script to configure Ubuntu with my personal preferences
