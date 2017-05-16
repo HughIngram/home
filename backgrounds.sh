@@ -1,38 +1,53 @@
 #!/bin/bash
 
-#script to download the APOD from NASA and set it as the desktop background
+# Script to download the Astronomy Picture Of the Day 
+# from nasa.gov and set it as the desktop background in Gnome
+
+gnome-shell --version
+if [ $? != "0" ]
+	then 
+		echo "Gnome not installed."
+		exit 1
+fi
 
 cd $HOME/Pictures
 mkdir -p apod 
 cd apod
-#pwd
-rm  -fv --one-file-system astropix.html
-echo
+rm  -fv astropix.html
 
-echo downloading web page http://apod.nasa.gov/apod/astropix.html
-echo ===========================
-wget -v http://apod.nasa.gov/apod/astropix.html
-echo ===========================
+echo "==========================="
+wget -v https://apod.nasa.gov/apod/astropix.html
 
-wholeline=$(grep -m 1 '<a href="image' astropix.html)
+echo "==========================="
+WHOLELINE=$(grep -m 1 '<a href="image' astropix.html)
 
-#echo wholeline = $wholeline
-wholeline=${wholeline%??}
-#echo wholeline = $wholeline
-wholeline=${wholeline#?????????}
-#echo wholeline= $wholeline
-echo
-echo Downloading image at http://apod.nasa.gov/apod/$wholeline
-echo
-wget -Nv "http://apod.nasa.gov/apod"/$wholeline 
-echo ===========================
-filename=$(basename $wholeline)
-echo downloaded image:
-ls -lh | grep $filename
-echo
-echo Script Complete!
-echo ===========================
-echo "file://$HOME/Pictures/apod/$filename"
-gsettings set org.gnome.desktop.background picture-uri file://$HOME/Pictures/apod/$filename
+if [ -z "$WHOLELINE" ]
+	then
+		echo "Today's APOD is not an image."
+		exit 1
+fi
+
+WHOLELINE=${WHOLELINE%??}
+img_name=${WHOLELINE#??????????}
+wget -Nv https://apod.nasa.gov/apod/$img_name 
+FILENAME="$(basename "$img_name")"
+
+HEIGHT="$(identify -format %h "$FILENAME")"
+WIDTH="$(identify -format %w "$FILENAME")"
+
+FILESIZE="$(wc -c < "$FILENAME")"
+
+if (( $FILESIZE < 500 
+	|| $WIDTH <= 1920 || $HEIGHT <= 1080))
+	then
+		echo "Image too small."
+		exit 1
+fi
+
+echo "==========================="
+echo "file://$HOME/Pictures/apod/update$FILENAME"
+gsettings set org.gnome.desktop.background picture-uri file://$HOME/Pictures/apod/$FILENAME
 gsettings set org.gnome.desktop.background picture-options zoom
 
+rm  -fv astropix.html
+echo Background set succesfully!
