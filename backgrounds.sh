@@ -28,13 +28,13 @@ if [ -z "$WHOLELINE" ]
 fi
 
 WHOLELINE=${WHOLELINE%??}
-img_name=${WHOLELINE#??????????}
-wget -Nv https://apod.nasa.gov/apod/$img_name 
-FILENAME="$(basename "$img_name")"
+IMG_NAME=${WHOLELINE#??????????}
+
+wget -Nv https://apod.nasa.gov/apod/$IMG_ADDRESS 
+FILENAME="$(basename "$IMG_ADDRESS")"
 
 HEIGHT="$(identify -format %h "$FILENAME")"
 WIDTH="$(identify -format %w "$FILENAME")"
-
 FILESIZE="$(wc -c < "$FILENAME")"
 
 if (( $FILESIZE < 500 
