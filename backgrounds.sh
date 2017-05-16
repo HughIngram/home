@@ -3,6 +3,9 @@
 # Script to download the Astronomy Picture Of the Day 
 # from nasa.gov and set it as the desktop background in Gnome
 
+# Dependencies: imagemagick
+
+#todo use feh as a fallback
 gnome-shell --version
 if [ $? != "0" ]
 	then 
