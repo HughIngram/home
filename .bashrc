@@ -110,10 +110,10 @@ if ! shopt -oq posix; then
 fi
 
 #netkit
-export NETKIT_HOME=~/netkit
-export MANPATH=:$NETKIT_HOME/man
-export PATH=$NETKIT_HOME/bin:$PATH
-. $NETKIT_HOME/bin/netkit_bash_completion
+#export NETKIT_HOME=~/netkit
+#export MANPATH=:$NETKIT_HOME/man
+#export PATH=$NETKIT_HOME/bin:$PATH
+#. $NETKIT_HOME/bin/netkit_bash_completion
 
 #aliases
 alias ls1="ls -1"
