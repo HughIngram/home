@@ -20,16 +20,15 @@ if ! gnome-shell --version
 		exit 1
 fi
 
-cd "$HOME/Pictures"
-mkdir -p apod 
-cd apod
-rm  -fv astropix.html
+path_to_images="$HOME/Pictures/apod"
+mkdir -p "$path_to_images" 
+rm  -fv "$path_to_images/astropix.html"
 
 echo "==========================="
-wget -v https://apod.nasa.gov/apod/astropix.html
+wget -v https://apod.nasa.gov/apod/astropix.html -P "$path_to_images"
 
 echo "==========================="
-wholeline="$(grep -m 1 '<a href="image' astropix.html)"
+wholeline="$(grep -m 1 '<a href="image' "$path_to_images/astropix.html")"
 
 if [ -z "$wholeline" ]
 	then
@@ -40,12 +39,12 @@ fi
 wholeline=${wholeline%??}
 img_address=${wholeline#??????????}
 
-wget -Nv https://apod.nasa.gov/apod/$img_address 
-filename="$(basename "$img_address")"
+wget -Nv https://apod.nasa.gov/apod/$img_address -P "$path_to_images"
+filename="$(basename "$path_to_images/$img_address")"
 
-height="$(identify -format %h "$filename")"
-width="$(identify -format %w "$filename")"
-filesize="$(wc -c < "$filename")"
+height="$(identify -format %h "$path_to_images/$filename")"
+width="$(identify -format %w "$path_to_images/$filename")"
+filesize="$(wc -c < "$path_to_images/$filename")"
 
 if (( filesize < MIN_IMG_SIZE
 	|| width <= MIN_IMG_WIDTH || height <= MIN_HEIGHT ))
@@ -55,11 +54,11 @@ if (( filesize < MIN_IMG_SIZE
 fi
 
 echo "==========================="
-echo "file://$HOME/Pictures/apod/update$filename"
-gsettings set org.gnome.desktop.background picture-uri file://$HOME/Pictures/apod/$filename
+echo "file://$HOME/Pictures/apod/$path_to_images/$filename"
+gsettings set org.gnome.desktop.background picture-uri file://$path_to_images/$filename
 gsettings set org.gnome.desktop.background picture-options zoom
 
-rm  -fv astropix.html
+rm  -fv "$path_to_images/astropix.html"
 echo Background set succesfully!
 
 #TODO use feh as a fallback if Gnome is not available
