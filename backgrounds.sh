@@ -6,22 +6,21 @@
 
 
 # The minimum acceptable file size for background images, in kB
-MIN_SIZE=500
+MIN_IMG_SIZE=500
 
 # The mininum acceptable height for background images, in pixels
-MIN_HEIGHT=1080
+MIN_IMG_HEIGHT=1080
 
 # The mininum acceptable width for background images, in pixels
-MIN_WIDTH=1920
+MIN_IMG_WIDTH=1920
 
-gnome-shell --version
-if [ $? != "0" ]
+if ! gnome-shell --version
 	then 
 		echo "Gnome not installed."
 		exit 1
 fi
 
-cd $HOME/Pictures
+cd "$HOME/Pictures"
 mkdir -p apod 
 cd apod
 rm  -fv astropix.html
@@ -30,34 +29,34 @@ echo "==========================="
 wget -v https://apod.nasa.gov/apod/astropix.html
 
 echo "==========================="
-WHOLELINE="$(grep -m 1 '<a href="image' astropix.html)"
+wholeline="$(grep -m 1 '<a href="image' astropix.html)"
 
-if [ -z "$WHOLELINE" ]
+if [ -z "$wholeline" ]
 	then
 		echo "Today's APOD is not an image."
 		exit 1
 fi
 
-WHOLELINE=${WHOLELINE%??}
-IMG_ADDRESS=${WHOLELINE#??????????}
+wholeline=${wholeline%??}
+img_address=${wholeline#??????????}
 
-wget -Nv https://apod.nasa.gov/apod/$IMG_ADDRESS 
-FILENAME="$(basename "$IMG_ADDRESS")"
+wget -Nv https://apod.nasa.gov/apod/$img_address 
+filename="$(basename "$img_address")"
 
-HEIGHT="$(identify -format %h "$FILENAME")"
-WIDTH="$(identify -format %w "$FILENAME")"
-FILESIZE="$(wc -c < "$FILENAME")"
+height="$(identify -format %h "$filename")"
+width="$(identify -format %w "$filename")"
+filesize="$(wc -c < "$filename")"
 
-if (( $FILESIZE < $MIN_WIDTH 
-	|| $WIDTH <= $MIN_WIDTH || $HEIGHT <= $MIN_HEIGHT ))
+if (( filesize < MIN_IMG_SIZE
+	|| width <= MIN_IMG_WIDTH || height <= MIN_HEIGHT ))
 	then
 		echo "Image too small."
 		exit 1
 fi
 
 echo "==========================="
-echo "file://$HOME/Pictures/apod/update$FILENAME"
-gsettings set org.gnome.desktop.background picture-uri file://$HOME/Pictures/apod/$FILENAME
+echo "file://$HOME/Pictures/apod/update$filename"
+gsettings set org.gnome.desktop.background picture-uri file://$HOME/Pictures/apod/$filename
 gsettings set org.gnome.desktop.background picture-options zoom
 
 rm  -fv astropix.html
