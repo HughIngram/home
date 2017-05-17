@@ -1,11 +1,19 @@
 #!/bin/bash
 
 # Script to download the Astronomy Picture Of the Day 
-# from nasa.gov and set it as the desktop background in Gnome
+# from nasa.gov and set it as the desktop background in Gnome.
+#	Dependencies: Gnome, imagemagick
 
-# Dependencies: imagemagick
 
-#todo use feh as a fallback
+# The minimum acceptable file size for background images, in kB
+MIN_SIZE=500
+
+# The mininum acceptable height for background images, in pixels
+MIN_HEIGHT=1080
+
+# The mininum acceptable width for background images, in pixels
+MIN_WIDTH=1920
+
 gnome-shell --version
 if [ $? != "0" ]
 	then 
@@ -22,7 +30,7 @@ echo "==========================="
 wget -v https://apod.nasa.gov/apod/astropix.html
 
 echo "==========================="
-WHOLELINE=$(grep -m 1 '<a href="image' astropix.html)
+WHOLELINE="$(grep -m 1 '<a href="image' astropix.html)"
 
 if [ -z "$WHOLELINE" ]
 	then
@@ -31,7 +39,7 @@ if [ -z "$WHOLELINE" ]
 fi
 
 WHOLELINE=${WHOLELINE%??}
-IMG_NAME=${WHOLELINE#??????????}
+IMG_ADDRESS=${WHOLELINE#??????????}
 
 wget -Nv https://apod.nasa.gov/apod/$IMG_ADDRESS 
 FILENAME="$(basename "$IMG_ADDRESS")"
@@ -40,8 +48,8 @@ HEIGHT="$(identify -format %h "$FILENAME")"
 WIDTH="$(identify -format %w "$FILENAME")"
 FILESIZE="$(wc -c < "$FILENAME")"
 
-if (( $FILESIZE < 500 
-	|| $WIDTH <= 1920 || $HEIGHT <= 1080))
+if (( $FILESIZE < $MIN_WIDTH 
+	|| $WIDTH <= $MIN_WIDTH || $HEIGHT <= $MIN_HEIGHT ))
 	then
 		echo "Image too small."
 		exit 1
@@ -54,3 +62,5 @@ gsettings set org.gnome.desktop.background picture-options zoom
 
 rm  -fv astropix.html
 echo Background set succesfully!
+
+#TODO use feh as a fallback if Gnome is not available
