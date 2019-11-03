@@ -115,11 +115,6 @@ fi
 #export PATH=$NETKIT_HOME/bin:$PATH
 #. $NETKIT_HOME/bin/netkit_bash_completion
 
-#aliases
-alias ls1="ls -1"
-alias lsa="ls -a1"
-alias lsl="ls -1lh"
-
 # swap: Swaps contents of two files
 #    param1: the file to be swapped
 #    param2: the file to be swapped

@@ -23,7 +23,7 @@ fi
 
 #install various programs
 
-apt install htop filezilla terminator vim gcc make ghc
+apt install htop filezilla terminator vim gcc make ghc xsel
 
 #install install this repo
 
@@ -36,8 +36,6 @@ if [  -e "$home_repo" ]; then
     cp -v .bashrc ..;
     cp -v .vimrc ..;
     cp -v .xmodmap-esc ..;
-    cp -v backgrounds.sh ..;
-    cp -v random_background_selector.sh ..;
     
     #the below is only executed if the computer is a ThinkPad laptop
     if [[ -n "$(sudo dmidecode | grep ThinkPad)" ]]; then

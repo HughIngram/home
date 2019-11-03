@@ -1,8 +1,6 @@
 inoremap jj <Esc>
 
 syntax enable
-"set background=dark
-"colorscheme solarized
 
 set clipboard=unnamedplus
 
