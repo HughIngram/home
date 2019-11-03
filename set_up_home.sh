@@ -35,6 +35,7 @@ if [  -e "$home_repo" ]; then
     cp -v .bash_profile ..;
     cp -v .bashrc ..;
     cp -v .vimrc ..;
+    cp -v .ideavimrc ..;
     cp -v .xmodmap-esc ..;
     
     #the below is only executed if the computer is a ThinkPad laptop
