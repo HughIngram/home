@@ -24,54 +24,7 @@ cd $HOME
 
 #install various programs
 
-apt-get install htop
-if [ $? -eq 0 ]; then
-	log+="htop installed succesfully\n";
-else
-	log+="error while installing htop\n";
-fi
-
-apt-get install filezilla 
-if [ $? -eq 0 ]; then
-	log+="filezilla installed succesfully\n";
-else
-	log+="error while installing filezilla\n";
-fi
-
-apt-get install terminator
-if [ $? -eq 0 ]; then
-	log+="terminator installed succesfully...\n";
-else
-	log+="error while installing terminator\n";
-fi
-
-apt-get install vim
-if [ $? -eq 0 ]; then
-	log+="vim installed succesfully...\n";
-else
-	log+="error while installing vim\n";
-fi
-
-apt-get install gcc
-if [ $? -eq 0 ]; then
-	log+="gcc installed succesfully...\n";
-else
-	log+="error while installing gcc\n";
-fi
-
-apt-get install make
-if [ $? -eq 0 ]; then
-	log+="make installed succesfully...\n";
-else
-	log+="error while installing make\n";
-fi
-
-apt-get install ghc
-if [ $? -eq 0 ]; then
-	log+="ghc installed succesfully...\n";
-else
-	log+="error while installing ghc\n";
-fi
+apt install htop filezilla terminator vim gcc make ghc
 
 #install git then download and install 'home' repo
 apt-get install git
